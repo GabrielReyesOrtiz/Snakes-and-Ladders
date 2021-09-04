@@ -11,8 +11,8 @@ export default class Board {
       //Player 1 --------------------------------------------------------
       let valueDice = this._player1.throwDice();
       this._player1.setPos(this._player1.getPos() + valueDice);
-      let ladder = this.ladder(this._player1.getPos());
-      let snake = this.snake(this._player1.getPos());
+      let ladder = this._ladder(this._player1.getPos());
+      let snake = this._snake(this._player1.getPos());
       if (ladder == 0 && snake == 0) {
         console.log(
           `Round ${round} PLayer1 position ${this._player1.getPos()} `
@@ -34,8 +34,8 @@ export default class Board {
       //PLayer 2 ----------------------------------------------------------------------------------------
       let valueDice2 = this._player2.throwDice();
       this._player2.setPos(this._player2.getPos() + valueDice2);
-      let ladder2 = this.ladder(this._player2.getPos());
-      let snake2 = this.snake(this._player2.getPos());
+      let ladder2 = this._ladder(this._player2.getPos());
+      let snake2 = this._snake(this._player2.getPos());
       if (ladder2 == 0 && snake2 == 0) {
         console.log(
           `Round ${round} PLayer2 position ${this._player2.getPos()} `
@@ -46,7 +46,7 @@ export default class Board {
           `Round ${round} PLayer2 position ${this._player2.getPos()} Escalera `
         );
       } else {
-        this._player1.setPos(this._player2.getPos() + snake);
+        this._player2.setPos(this._player2.getPos() + snake2);
         console.log(
           `Round ${round} PLayer2 position ${this._player2.getPos()} Serpiente `
         );
@@ -59,7 +59,7 @@ export default class Board {
     }
   }
 
-  ladder(pos) {
+  _ladder(pos) {
     if (pos == 17 || pos == 61) {
       return 20;
     }
@@ -82,7 +82,7 @@ export default class Board {
     return 0;
   }
 
-  snake(pos) {
+  _snake(pos) {
     if (pos == 15 || pos == 63) {
       return -11;
     }
