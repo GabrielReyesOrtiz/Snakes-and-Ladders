@@ -8,39 +8,50 @@ export default class Board {
     let round = 0;
     do {
       round++;
+      //Player 1 --------------------------------------------------------
       let valueDice = this._player1.throwDice();
       this._player1.setPos(this._player1.getPos() + valueDice);
       let ladder = this.ladder(this._player1.getPos());
-      if (ladder == 0) {
+      let snake = this.snake(this._player1.getPos());
+      if (ladder == 0 && snake == 0) {
         console.log(
           `Round ${round} PLayer1 position ${this._player1.getPos()} `
         );
-      } else {
+      } else if (snake == 0) {
         this._player1.setPos(this._player1.getPos() + ladder);
         console.log(
           `Round ${round} PLayer1 position ${this._player1.getPos()} Escalera `
+        );
+      } else {
+        this._player1.setPos(this._player1.getPos() + snake);
+        console.log(
+          `Round ${round} PLayer1 position ${this._player1.getPos()} Serpiente `
         );
       }
       if (this._player1.getPos() >= 100) {
         break;
       }
-
+      //PLayer 2 ----------------------------------------------------------------------------------------
       let valueDice2 = this._player2.throwDice();
       this._player2.setPos(this._player2.getPos() + valueDice2);
       let ladder2 = this.ladder(this._player2.getPos());
-      if (ladder2 == 0) {
+      let snake2 = this.snake(this._player2.getPos());
+      if (ladder2 == 0 && snake2 == 0) {
         console.log(
           `Round ${round} PLayer2 position ${this._player2.getPos()} `
         );
-      } else {
+      } else if (snake2 == 0) {
         this._player2.setPos(this._player2.getPos() + ladder2);
         console.log(
           `Round ${round} PLayer2 position ${this._player2.getPos()} Escalera `
         );
+      } else {
+        this._player1.setPos(this._player2.getPos() + snake);
+        console.log(
+          `Round ${round} PLayer2 position ${this._player2.getPos()} Serpiente `
+        );
       }
     } while (this._player1.getPos() < 100 && this._player2.getPos() < 100);
-  }
-  win() {
     if (this._player1.getPos() > this._player2.getPos()) {
       console.log("EL GANADOR ES PLAYER 1");
     } else {
@@ -73,7 +84,7 @@ export default class Board {
 
   snake(pos) {
     if (pos == 15 || pos == 63) {
-      return -20;
+      return -11;
     }
 
     if (pos == 30 || pos == 76) {
