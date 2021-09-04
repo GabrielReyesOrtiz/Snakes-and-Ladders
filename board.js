@@ -10,14 +10,34 @@ export default class Board {
       round++;
       let valueDice = this._player1.throwDice();
       this._player1.setPos(this._player1.getPos() + valueDice);
-      console.log(`Round ${round} PLayer1 position ${this._player1.getPos()} `);
+      let ladder = this.ladder(this._player1.getPos());
+      if (ladder == 0) {
+        console.log(
+          `Round ${round} PLayer1 position ${this._player1.getPos()} `
+        );
+      } else {
+        this._player1.setPos(this._player1.getPos() + ladder);
+        console.log(
+          `Round ${round} PLayer1 position ${this._player1.getPos()} Escalera `
+        );
+      }
       if (this._player1.getPos() >= 100) {
         break;
       }
 
       let valueDice2 = this._player2.throwDice();
       this._player2.setPos(this._player2.getPos() + valueDice2);
-      console.log(`Round ${round} PLayer2 position ${this._player2.getPos()} `);
+      let ladder2 = this.ladder(this._player2.getPos());
+      if (ladder2 == 0) {
+        console.log(
+          `Round ${round} PLayer2 position ${this._player2.getPos()} `
+        );
+      } else {
+        this._player2.setPos(this._player2.getPos() + ladder2);
+        console.log(
+          `Round ${round} PLayer2 position ${this._player2.getPos()} Escalera `
+        );
+      }
     } while (this._player1.getPos() < 100 && this._player2.getPos() < 100);
   }
   win() {
@@ -26,9 +46,51 @@ export default class Board {
     } else {
       console.log("EL GANADOR ES PLAYER 2");
     }
+  }
+
+  ladder(pos) {
+    if (pos == 17 || pos == 61) {
+      return 20;
     }
-    
-    snake() {
-        if(this._player1)
+
+    if (pos == 32 || pos == 78) {
+      return 12;
     }
+
+    if (pos == 49 || pos == 80) {
+      return 14;
+    }
+
+    if (pos == 55 || pos == 90) {
+      return 9;
+    }
+
+    if (pos == 9 || pos == 68) {
+      return 30;
+    }
+    return 0;
+  }
+
+  snake(pos) {
+    if (pos == 15 || pos == 63) {
+      return -20;
+    }
+
+    if (pos == 30 || pos == 76) {
+      return -12;
+    }
+
+    if (pos == 47 || pos == 82) {
+      return -17;
+    }
+
+    if (pos == 53 || pos == 92) {
+      return -45;
+    }
+
+    if (pos == 28 || pos == 69) {
+      return -15;
+    }
+    return 0;
+  }
 }
